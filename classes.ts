@@ -55,3 +55,101 @@ class Employee extends Person {
         this.employeeId = _employeeId;
     }
 }
+
+// Access modifiers
+
+// Private cannot be accessed outside of class
+class Citizen {
+    private name: string;
+    protected active: boolean;
+
+    constructor(name: string) {
+        this.name = name;
+        this.active = true;
+    }
+
+    get theName() : string {
+        return this.name;
+    }
+}
+
+
+// protected members can be accessed by sub types
+class Customer extends Citizen {
+    constructor(name: string) {
+        super(name);
+    }
+
+    get isActive() {
+        return this.active;
+    }
+}
+
+console.log(new Citizen("John doe").theName);
+console.log(new Customer("C").isActive);
+
+// Constructor initialization short hand (automatic initialization)
+// aka Parameter properties
+class ConstructorInitialization {
+    constructor(private _a: number = 1, private _b: string = 'two') {
+    }
+
+    get a() : number {
+        return this._a;
+    }
+
+    get b() : string {
+        return this._b;
+    }
+}
+
+const c1 = new ConstructorInitialization();
+const c2 = new ConstructorInitialization(3, 'four');
+console.log(c1.a, c1.b);
+console.log(c2.a, c2.b);
+
+// Readonly, can only be initialized in the constructor
+
+class ReadOnly {
+    constructor(public readonly foo: string = 'bar') {}
+}
+
+const ro = new ReadOnly();
+
+// ro.foo = 'baz'; Error!
+
+// Static properties
+class StaticProperties {
+    static coefficient : number = 1.234;
+
+    getResult(num: number) : number {
+        return StaticProperties.coefficient * num;
+    }
+}
+
+const sp = new StaticProperties();
+
+console.log(sp.getResult(10), StaticProperties.coefficient);
+
+
+// Abstract classes
+
+abstract class AbstractGreeting {
+    abstract sayHello() : void;
+    constructor(protected name: string) {}
+}
+
+// const ab = new Abstract('foo'); Error!
+
+class Greeting extends AbstractGreeting {
+    sayHello() {
+        return `Hello, ${this.name}`;
+    }
+    constructor(name: string) {
+        super(name);
+    }
+}
+
+const greeting = new Greeting('John Doe');
+
+console.log(greeting.sayHello());
