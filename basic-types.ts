@@ -46,4 +46,4 @@ function infiniteLoop(): never {
 
 // Type assertions (type casting)
 let someValue: any = "foobar";
-let str: number = (<string>someValue).length;
+let str: number = (someValue as string).length;
