@@ -63,3 +63,18 @@ let newYork: INewYork = { name: "NewYork" };
 bivariance(noun);
 bivariance(city);
 bivariance(newYork);
+
+interface IEmpty<T> {
+}
+let ex: IEmpty<number>;
+let ey: IEmpty<string>;
+
+ex = ey;  // okay, y matches structure of x
+
+interface INotEmpty<T> {
+    data: T;
+}
+let nex: INotEmpty<number>;
+let ney: INotEmpty<string>;
+
+// x = y;  // error, x and y are not compatible
